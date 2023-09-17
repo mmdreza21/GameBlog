@@ -7,7 +7,7 @@ export enum Role {
 }
 export class UserEntity {
   @AutoMap()
-  id: string;
+  id: number;
   @AutoMap()
   firstName: string;
   @AutoMap()

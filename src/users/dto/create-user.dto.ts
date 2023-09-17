@@ -68,7 +68,8 @@ export class UserSignUpDTO {
   })
   password: string;
 
-  regetrationDate: Date
+  // resetPassToken?: string
+  // dateOfToken?: Date
 
 }
 

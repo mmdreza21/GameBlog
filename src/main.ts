@@ -12,23 +12,25 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
   app.setGlobalPrefix('api');
   // app.use()
 
-  const options = new DocumentBuilder()
-    .setTitle('this is documentation for store api`s')
-    .setDescription(
-      'you can use this for understand how this app apis work this is build by ❤ whit mohamad reza javadi',
-    )
-    .setVersion('1.0.0')
-    .addBasicAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-      },
-      'JWT-auth',
-    )
-    .build();
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api/docs', app, document);
-
+  const isDevelopment = process.env.NODE_ENV === 'dev';
+  if (!isDevelopment) {
+    const options = new DocumentBuilder()
+      .setTitle('this is documentation for store api`s')
+      .setDescription(
+        'you can use this for understand how this app apis work this is build by ❤ whit mohamad reza javadi',
+      )
+      .setVersion('1.0.0')
+      .addBasicAuth(
+        {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+        'JWT-auth',
+      )
+      .build();
+    const document = SwaggerModule.createDocument(app, options);
+    SwaggerModule.setup('api/docs', app, document);
+  }
   await app.listen(8080);
 })();

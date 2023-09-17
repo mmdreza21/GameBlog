@@ -8,7 +8,7 @@ import {
 } from 'class-validator';
 
 export class UpdateUserDto {
-  id: string;
+  id: number;
   @MaxLength(20)
   @MinLength(3)
   @ApiProperty({

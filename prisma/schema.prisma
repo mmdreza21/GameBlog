@@ -10,28 +10,35 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  AdminOfSite
+  User
+}
+
 model User {
-  id              Int      @id @default(autoincrement())
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-  userName        String
-  email           String
-  firstName       String
-  lastName        String
-  bio             String
-  password        String
-  regetrationDate DateTime
-  Post            Post[]
+  id             Int       @id @default(autoincrement())
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  userName       String
+  email          String
+  firstName      String
+  lastName       String
+  bio            String
+  password       String
+  resetPassToken String?
+  dateOfToken    DateTime?
+  Post           Post[]
+  role           Role      @default(User)
 
   @@unique([email, userName])
 }
 
 model Category {
   id        Int      @id @default(autoincrement())
-  name      String
+  Post      Post[]
+  title     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  posts     Post[]
 }
 
 model Post {
