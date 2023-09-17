@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+
+  NotFoundException
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/Prisma.service';
 
@@ -20,7 +24,7 @@ export class CategoryService {
     const cat = await this.Prisma.category.findUnique({
       where,
     });
-    if (!cat) throw new NotFoundException('category whit given id ENotFound ');
+    if (!cat) return null;
     return cat;
   }
 

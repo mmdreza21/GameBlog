@@ -1,3 +1,0 @@
-JWT_SECRET = "yoursecret"
-DATABASE_URL = "yourdb"
-NODE_ENV = "your env"

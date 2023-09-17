@@ -13,7 +13,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
   // app.use()
 
   const isDevelopment = process.env.NODE_ENV === 'dev';
-  if (!isDevelopment) {
+  if (isDevelopment) {
     const options = new DocumentBuilder()
       .setTitle('this is documentation for store api`s')
       .setDescription(

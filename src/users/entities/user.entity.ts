@@ -3,7 +3,6 @@ import { AutoMap } from '@automapper/classes';
 export enum Role {
   AdminOfSite = 'AdminOfSite',
   User = 'User',
-  Seller = 'Seller',
 }
 export class UserEntity {
   @AutoMap()

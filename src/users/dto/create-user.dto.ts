@@ -1,13 +1,14 @@
-import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
-import { ObjectId } from 'bson';
 import {
+  IsDate,
   IsEmail,
   IsNotEmpty,
+  IsString,
   Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { Role } from '../entities/user.entity';
 // import { Role } from '../entities/user.entity';
 
 export class UserSignUpDTO {
@@ -67,6 +68,9 @@ export class UserSignUpDTO {
     default: '123Asd',
   })
   password: string;
+  role?: Role
+
+
 
   // resetPassToken?: string
   // dateOfToken?: Date
@@ -74,20 +78,19 @@ export class UserSignUpDTO {
 }
 
 export class UserDTO {
-  @AutoMap()
-  id: ObjectId;
-  @AutoMap()
+  @IsString()
+  id: number;
+  @IsString()
   userName: string;
-  @AutoMap()
+  @IsString()
   fullName: string;
-  @AutoMap()
+  @IsString()
   email: string;
-  @AutoMap()
-  phone?: Number;
-  @AutoMap()
-  addresses?: Array<string>;
-  @AutoMap()
+  @IsDate()
   createdAt: Date;
-  @AutoMap()
+  @IsDate()
   updatedAt: Date;
+  @IsString()
+  role: string
+
 }

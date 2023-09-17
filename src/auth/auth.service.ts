@@ -14,7 +14,7 @@ export class AuthService {
   async LoginDto(req: LoginDto) {
     const user = await this.validate(req);
     return {
-      accessToken: this.jwtService.sign({ userId: user.id }),
+      accessToken: this.jwtService.sign({ userId: user.id, role: user.role }),
     };
   }
 

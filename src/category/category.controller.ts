@@ -1,5 +1,3 @@
-import { Mapper } from '@automapper/core';
-import { InjectMapper } from '@automapper/nestjs';
 import {
   Controller,
   Get,
@@ -9,7 +7,6 @@ import {
   Param,
   Delete,
   UseGuards,
-  Res,
   BadRequestException,
 } from '@nestjs/common';
 import {
@@ -25,7 +22,7 @@ import { Roles } from 'src/auth/guards/roles.decorator';
 import { Role } from 'src/users/entities/user.entity';
 
 import { CategoryService } from './category.service';
-import { CatDTO, CreateCategoryDto } from './dto/create-category.dto';
+import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CategoryEntity } from './entities/category.entity';
 
@@ -34,7 +31,6 @@ import { CategoryEntity } from './entities/category.entity';
 export class CategoryController {
   constructor(
     private readonly categoryService: CategoryService,
-    @InjectMapper() private mapper: Mapper,
   ) { }
 
   @ApiSecurity('JWT-auth')
@@ -43,19 +39,20 @@ export class CategoryController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Post()
   async create(@Body() createCategoryDto: CreateCategoryDto) {
+
     const cat = await this.categoryService.findOne({
       title: createCategoryDto.title,
     });
     if (cat) throw new BadRequestException('this category already exist');
 
     const newCat = await this.categoryService.create(createCategoryDto);
-    return this.mapper.map(newCat, CatDTO, CategoryEntity);
+    return newCat
   }
 
   @Get()
   async findAll() {
     const cat = await this.categoryService.findAll();
-    return this.mapper.mapArray(cat, 'CatDTO', 'CategoryEntity');
+    return cat;
   }
 
   @Get('/:id')
@@ -73,7 +70,7 @@ export class CategoryController {
     @Body() updateCategoryDto: UpdateCategoryDto,
   ): Promise<CategoryEntity> {
     const cat = await this.categoryService.update({ id }, updateCategoryDto);
-    return this.mapper.map(cat, "CatDTO", "CategoryEntity");
+    return cat;
   }
 
   @ApiSecurity('JWT-auth')
@@ -83,9 +80,8 @@ export class CategoryController {
   @Delete(':id')
   async remove(
     @Param('id') id: number,
-    @Res({ passthrough: true }) res,
   ): Promise<CategoryEntity> {
     const cat = await this.categoryService.remove({ id });
-    return this.mapper.map(cat, "CatDTO", "CategoryEntity");
+    return cat;
   }
 }

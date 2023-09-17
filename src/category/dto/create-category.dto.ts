@@ -1,7 +1,5 @@
-import { AutoMap } from '@automapper/classes';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, MinLength } from 'class-validator';
-import { IsObjectId } from 'class-validator-mongo-object-id';
 
 export class CreateCategoryDto {
   @IsNotEmpty()
@@ -13,18 +11,9 @@ export class CreateCategoryDto {
   title: string;
 }
 
-export class ObjectIdDto {
-  @IsObjectId({ message: 'id most be valid mongodb objectID' })
-  id: number;
-}
-
 export class CatDTO {
-  @AutoMap()
   id: number;
-  @AutoMap()
   title: string;
-  @AutoMap()
   createdAt: Date;
-  @AutoMap()
   updatedAt: Date;
 }
