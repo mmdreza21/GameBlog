@@ -6,7 +6,9 @@ import { Prisma } from '@prisma/client';
 @Injectable()
 export class PostService {
   constructor(private Prisma: PrismaService) { }
-  async create(data: Prisma.PostCreateInput) {
+  async create(data: Prisma.PostUncheckedCreateInput) {
+    console.log(data);
+
     return await this.Prisma.post.create({ data })
 
   }

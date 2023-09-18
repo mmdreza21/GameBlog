@@ -27,12 +27,16 @@ export class UsersController {
   async create(@Body() createUserDto: UserSignUpDTO) {
     if (createUserDto.role === Role.AdminOfSite)
       throw new ForbiddenException(
-        'You can`t set the role don`t mass whit me my deer',
+        'You can`t set the role don`t mass whit me my dear',
       );
     const salt = await genSalt(10);
     const password = await hash(createUserDto.password, salt);
+    const { userName, email } = await this.usersService.create({ ...createUserDto, password, role: Role.AdminOfSite });
+    return {
+      userName,
+      email
+    }
 
-    return this.usersService.create({ ...createUserDto, password, });
   }
 
   @UseGuards(JwtAuthGuard)

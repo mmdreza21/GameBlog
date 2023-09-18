@@ -14,8 +14,8 @@ export class PostController {
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@Request() req, @Body() createPostDto: CreatePostDto) {
-    console.log(req.user);
-    return this.postService.create({ ...createPostDto, author: req.user.id });
+    const user: { userId: number } = req.user
+    return this.postService.create({ ...createPostDto, authorId: user.userId });
   }
 
   @Get()

@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { IsString, IsNumber } from "class-validator"
+import { IsString, IsInt } from "class-validator"
 
 export class CreatePostDto {
     @IsString()
@@ -14,10 +14,11 @@ export class CreatePostDto {
         description: 'Write your content ',
     })
     content: string
-    @IsNumber()
+    @IsInt()
     @ApiProperty({
         default: 1,
         description: 'Write a category ID ',
     })
-    category?: number
+    categoryId?: number
+
 }
